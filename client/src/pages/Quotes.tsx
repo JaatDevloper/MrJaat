@@ -7,8 +7,36 @@ import { format } from "date-fns";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
+const HARDCODED_QUOTES = [
+  {
+    id: 1,
+    content: "Strength is not just physical, it's a state of mind.",
+    author: "MrJaat",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: 2,
+    content: "Roots deep, head high. That's the way.",
+    author: "Jaat Wisdom",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: 3,
+    content: "Built different. Built to last.",
+    author: "MrJaat",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: 4,
+    content: "The legacy is not what we leave behind, but what we build today.",
+    author: "MrJaat",
+    createdAt: new Date().toISOString()
+  }
+];
+
 export default function Quotes() {
-  const { data: quotes, isLoading, isError } = useQuotes();
+  const { data: serverQuotes, isLoading } = useQuotes();
+  const quotes = serverQuotes && serverQuotes.length > 0 ? serverQuotes : HARDCODED_QUOTES;
   const { toast } = useToast();
 
   const handleDelete = async (id: number) => {
@@ -52,10 +80,6 @@ export default function Quotes() {
           <div className="flex justify-center items-center h-64">
             <Loader2 className="w-10 h-10 text-primary animate-spin" />
           </div>
-        ) : isError ? (
-          <div className="text-center py-20 text-red-500">
-            Failed to load data from the mainframe.
-          </div>
         ) : quotes && quotes.length === 0 ? (
           <div className="text-center py-20 border border-dashed border-white/10 rounded-xl">
             <p className="text-muted-foreground">No wisdom recorded yet. Be the first.</p>
@@ -82,7 +106,7 @@ export default function Quotes() {
                 <QuoteIcon className="w-8 h-8 text-primary/40 mb-6" />
                 
                 <blockquote className="font-display text-2xl md:text-3xl font-bold leading-tight mb-6 text-white group-hover:text-glow transition-all">
-                  "{quote.text}"
+                  "{quote.content}"
                 </blockquote>
                 
                 <div className="flex justify-between items-center border-t border-white/5 pt-4 mt-auto">
