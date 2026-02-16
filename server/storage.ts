@@ -4,7 +4,7 @@ import {
   quotes, logs,
   type InsertQuote, type InsertLog,
   type Quote, type Log
-} from "@shared/schema.js";
+} from "../shared/schema.js";
 
 export interface IStorage {
   getQuotes(): Promise<Quote[]>;
