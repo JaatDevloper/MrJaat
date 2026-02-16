@@ -62,7 +62,7 @@ export default function Quotes() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {quotes?.map((quote, idx) => (
+            {quotes?.map((quote: any, idx: number) => (
               <motion.div
                 key={quote.id}
                 initial={{ opacity: 0, y: 20 }}

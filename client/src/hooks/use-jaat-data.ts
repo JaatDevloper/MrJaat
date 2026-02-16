@@ -1,11 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@shared/routes";
-import { type InsertQuote, type InsertLog } from "@shared/schema";
-import { z } from "zod";
-
-// Definitions based on schema provided in prompt
-// Note: Schema definitions might be inferred, but prompt explicitly gave schema
-// We will rely on api definition from prompt
+import { api } from "../../../shared/routes.js";
+import { type InsertQuote, type InsertLog } from "../../../shared/schema.js";
 
 // ============================================
 // QUOTES
@@ -17,8 +12,7 @@ export function useQuotes() {
     queryFn: async () => {
       const res = await fetch(api.quotes.list.path);
       if (!res.ok) throw new Error("Failed to fetch quotes");
-      const data = await res.json();
-      return api.quotes.list.responses[200].parse(data);
+      return res.json();
     },
   });
 }
@@ -27,15 +21,16 @@ export function useCreateQuote() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (quote: InsertQuote) => {
-      const validated = api.quotes.create.input.parse(quote);
       const res = await fetch(api.quotes.create.path, {
         method: api.quotes.create.method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(validated),
+        body: JSON.stringify(quote),
       });
-      if (!res.ok) throw new Error("Failed to create quote");
-      const data = await res.json();
-      return api.quotes.create.responses[201].parse(data);
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || "Failed to create quote");
+      }
+      return res.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [api.quotes.list.path] });
@@ -53,8 +48,7 @@ export function useLogs() {
     queryFn: async () => {
       const res = await fetch(api.logs.list.path);
       if (!res.ok) throw new Error("Failed to fetch logs");
-      const data = await res.json();
-      return api.logs.list.responses[200].parse(data);
+      return res.json();
     },
   });
 }
@@ -63,15 +57,16 @@ export function useCreateLog() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (log: InsertLog) => {
-      const validated = api.logs.create.input.parse(log);
       const res = await fetch(api.logs.create.path, {
         method: api.logs.create.method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(validated),
+        body: JSON.stringify(log),
       });
-      if (!res.ok) throw new Error("Failed to create log");
-      const data = await res.json();
-      return api.logs.create.responses[201].parse(data);
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || "Failed to create log");
+      }
+      return res.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [api.logs.list.path] });
