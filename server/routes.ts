@@ -18,8 +18,14 @@ export async function registerRoutes(
     try {
       const { authKey, ...quoteData } = api.quotes.create.input.parse(req.body);
       
-      if (authKey !== process.env.ADMIN_AUTH_KEY) {
-        return res.status(401).json({ message: "Unauthorized: Invalid admin auth key." });
+      const adminKey = process.env.ADMIN_AUTH_KEY;
+      if (!adminKey) {
+        log("ADMIN_AUTH_KEY is not defined in environment variables", "error");
+        return res.status(500).json({ message: "Server configuration error: admin key not set." });
+      }
+
+      if (authKey !== adminKey) {
+        return res.status(401).json({ message: "Authentication Failed: Invalid admin auth key." });
       }
 
       const quote = await storage.createQuote(quoteData);
