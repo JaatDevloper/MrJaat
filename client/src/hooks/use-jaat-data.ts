@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api, type InsertQuote, type InsertLog } from "@shared/routes"; // Assuming schema export aligns
+import { api } from "@shared/routes";
+import { type InsertQuote, type InsertLog } from "@shared/schema";
 import { z } from "zod";
 
 // Definitions based on schema provided in prompt

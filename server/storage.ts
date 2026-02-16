@@ -1,10 +1,10 @@
-import { db } from "./db.js";
+import { db } from "./db";
 import { eq } from "drizzle-orm";
 import {
   quotes, logs,
   type InsertQuote, type InsertLog,
   type Quote, type Log
-} from "../shared/schema.js";
+} from "@shared/schema";
 
 export interface IStorage {
   getQuotes(): Promise<Quote[]>;
