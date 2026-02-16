@@ -12,30 +12,39 @@ export function CreateQuoteDialog() {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("MrJaat");
+  const [authKey, setAuthKey] = useState("");
   
   const { mutate: createQuote, isPending } = useCreateQuote();
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!content.trim()) return;
+    if (!content.trim() || !authKey.trim()) {
+      toast({
+        variant: "destructive",
+        title: "Required Fields",
+        description: "Please enter both quote content and admin auth key.",
+      });
+      return;
+    }
 
     createQuote(
-      { content, author },
+      { content, author, authKey },
       {
         onSuccess: () => {
           setOpen(false);
           setContent("");
+          setAuthKey("");
           toast({
             title: "Quote Added",
             description: "Your wisdom has been immortalized.",
           });
         },
-        onError: () => {
+        onError: (error: any) => {
           toast({
             variant: "destructive",
-            title: "Error",
-            description: "Failed to add quote. Try again.",
+            title: "Authentication Failed",
+            description: error.message || "Invalid admin auth key. Access denied.",
           });
         }
       }
@@ -59,6 +68,18 @@ export function CreateQuoteDialog() {
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+          <div className="space-y-2">
+            <Label htmlFor="authKey" className="text-primary font-bold">Admin Auth Key</Label>
+            <Input
+              id="authKey"
+              type="password"
+              value={authKey}
+              onChange={(e) => setAuthKey(e.target.value)}
+              placeholder="Enter admin key to unlock..."
+              className="bg-black/60 border-primary/50 focus:border-primary text-primary placeholder:text-primary/30 font-mono"
+            />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="content" className="text-muted-foreground">Quote Content</Label>
             <Textarea

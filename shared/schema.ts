@@ -17,7 +17,9 @@ export const logs = pgTable("logs", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const insertQuoteSchema = createInsertSchema(quotes).omit({ id: true, createdAt: true });
+export const insertQuoteSchema = createInsertSchema(quotes).omit({ id: true, createdAt: true }).extend({
+  authKey: z.string().optional()
+});
 export const insertLogSchema = createInsertSchema(logs).omit({ id: true, createdAt: true });
 
 export type Quote = typeof quotes.$inferSelect;

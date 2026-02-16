@@ -30,6 +30,17 @@ export const api = {
       responses: {
         201: z.custom<typeof quotes.$inferSelect>(),
         400: errorSchemas.validation,
+        401: errorSchemas.internal,
+      },
+    },
+    delete: {
+      method: 'DELETE' as const,
+      path: '/api/quotes/:id' as const,
+      input: z.object({ authKey: z.string() }),
+      responses: {
+        200: z.object({ success: z.boolean() }),
+        401: errorSchemas.internal,
+        404: errorSchemas.notFound,
       },
     },
   },

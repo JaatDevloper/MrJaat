@@ -1,4 +1,5 @@
 import { db } from "./db";
+import { eq } from "drizzle-orm";
 import {
   quotes, logs,
   type InsertQuote, type InsertLog,
@@ -8,6 +9,7 @@ import {
 export interface IStorage {
   getQuotes(): Promise<Quote[]>;
   createQuote(quote: InsertQuote): Promise<Quote>;
+  deleteQuote(id: number): Promise<void>;
   getLogs(): Promise<Log[]>;
   createLog(log: InsertLog): Promise<Log>;
 }
@@ -18,8 +20,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createQuote(insertQuote: InsertQuote): Promise<Quote> {
-    const [quote] = await db.insert(quotes).values(insertQuote).returning();
+    const { authKey, ...data } = insertQuote as any;
+    const [quote] = await db.insert(quotes).values(data).returning();
     return quote;
+  }
+
+  async deleteQuote(id: number): Promise<void> {
+    await db.delete(quotes).where(eq(quotes.id, id));
   }
 
   async getLogs(): Promise<Log[]> {

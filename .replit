@@ -40,3 +40,8 @@ waitForPort = 5000
 
 [agent]
 expertMode = true
+
+[userenv]
+
+[userenv.shared]
+ADMIN_AUTH_KEY = "jaat9282727#--$$-#"

@@ -2,11 +2,34 @@ import { Navigation } from "@/components/Navigation";
 import { useQuotes } from "@/hooks/use-jaat-data";
 import { CreateQuoteDialog } from "@/components/CreateQuoteDialog";
 import { motion } from "framer-motion";
-import { Quote as QuoteIcon, Loader2 } from "lucide-react";
+import { Quote as QuoteIcon, Loader2, Trash2 } from "lucide-react";
 import { format } from "date-fns";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Quotes() {
   const { data: quotes, isLoading, isError } = useQuotes();
+  const { toast } = useToast();
+
+  const handleDelete = async (id: number) => {
+    const authKey = prompt("Enter admin auth key to delete this quote:");
+    if (!authKey) return;
+
+    try {
+      await apiRequest("DELETE", `/api/quotes/${id}`, { authKey });
+      queryClient.invalidateQueries({ queryKey: ["/api/quotes"] });
+      toast({
+        title: "Quote Deleted",
+        description: "The wisdom has been removed from the archive.",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Delete Failed",
+        description: error.message || "Invalid admin auth key. Access denied.",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -47,8 +70,14 @@ export default function Quotes() {
                 transition={{ delay: idx * 0.1 }}
                 className="group relative bg-secondary/20 border border-white/5 hover:border-primary/50 hover:bg-secondary/40 transition-all duration-300 p-8 rounded-lg overflow-hidden"
               >
-                {/* Decorative glowing corner */}
-                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 blur-2xl group-hover:bg-primary/20 transition-all duration-500" />
+                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button 
+                    onClick={() => handleDelete(quote.id)}
+                    className="p-2 text-red-500 hover:text-red-400 bg-red-500/10 rounded-md transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
                 
                 <QuoteIcon className="w-8 h-8 text-primary/40 mb-6" />
                 

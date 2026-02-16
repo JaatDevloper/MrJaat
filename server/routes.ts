@@ -16,8 +16,13 @@ export async function registerRoutes(
 
   app.post(api.quotes.create.path, async (req, res) => {
     try {
-      const input = api.quotes.create.input.parse(req.body);
-      const quote = await storage.createQuote(input);
+      const { authKey, ...quoteData } = api.quotes.create.input.parse(req.body);
+      
+      if (authKey !== process.env.ADMIN_AUTH_KEY) {
+        return res.status(401).json({ message: "Unauthorized: Invalid admin auth key." });
+      }
+
+      const quote = await storage.createQuote(quoteData);
       res.status(201).json(quote);
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -27,6 +32,22 @@ export async function registerRoutes(
         });
       }
       throw err;
+    }
+  });
+
+  app.delete("/api/quotes/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    const { authKey } = req.body;
+
+    if (authKey !== process.env.ADMIN_AUTH_KEY) {
+      return res.status(401).json({ message: "Unauthorized: Invalid admin auth key." });
+    }
+
+    try {
+      await storage.deleteQuote(id);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(404).json({ message: "Quote not found." });
     }
   });
 
