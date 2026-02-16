@@ -10,26 +10,32 @@ import { useToast } from "@/hooks/use-toast";
 const HARDCODED_QUOTES = [
   {
     id: 1,
-    content: "Strength is not just physical, it's a state of mind.",
-    author: "MrJaat",
+    content: "मेहनत की कमाई और भाईचारे की मिसाल, ये है असली जाट की पहचान।",
+    author: "Deeps",
     createdAt: new Date().toISOString()
   },
   {
     id: 2,
-    content: "Roots deep, head high. That's the way.",
-    author: "Jaat Wisdom",
+    content: "जाट का रुतबा कल भी था और आज भी है, शेर की तरह जीना हमारी फितरत में है।",
+    author: "Insane",
     createdAt: new Date().toISOString()
   },
   {
     id: 3,
-    content: "Built different. Built to last.",
-    author: "MrJaat",
+    content: "जमीन से जुड़े हैं, पर सोच ऊँची रखते हैं। विरासत हमारी ईमानदारी और ताकत है।",
+    author: "Deeps",
     createdAt: new Date().toISOString()
   },
   {
     id: 4,
-    content: "The legacy is not what we leave behind, but what we build today.",
-    author: "MrJaat",
+    content: "दुनियां का क्या है, वो तो जलती रहेगी, जाटों की शान तो यूँ ही बढ़ती रहेगी।",
+    author: "Insane",
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: 5,
+    content: "खेतों की मिट्टी और बाजरे की रोटी, ये सादगी ही हमारी सबसे बड़ी शक्ति है।",
+    author: "Deeps",
     createdAt: new Date().toISOString()
   }
 ];
