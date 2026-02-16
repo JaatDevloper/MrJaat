@@ -10,6 +10,11 @@ export async function registerRoutes(
   app: Express
 ): Promise<Server> {
 
+  // Health check endpoint for deployment verification
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok" });
+  });
+
   app.get(api.quotes.list.path, async (req, res) => {
     const quotes = await storage.getQuotes();
     res.json(quotes);
