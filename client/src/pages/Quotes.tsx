@@ -58,7 +58,7 @@ export default function Quotes() {
                 
                 <div className="flex justify-between items-center border-t border-white/5 pt-4 mt-auto">
                   <span className="font-mono text-primary text-sm uppercase tracking-wider">
-                    — {quote.author}
+                    — {quote.author} 💔🗿𝘐𝘕𝘚𝘈𝘕𝘌
                   </span>
                   {quote.createdAt && (
                     <span className="text-xs text-muted-foreground font-mono">

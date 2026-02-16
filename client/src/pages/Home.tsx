@@ -117,7 +117,7 @@ export default function Home() {
               Establish a secure link. Reach out for collaborations, 
               inquiries, or simply to pay respects.
             </p>
-            <a href="mailto:contact@mrjaat.com" className="text-sm font-bold uppercase tracking-wider text-white group-hover:text-blue-500 flex items-center gap-2 transition-colors">
+            <a href="mailto:MrJaat16x7@gmail.com" className="text-sm font-bold uppercase tracking-wider text-white group-hover:text-blue-500 flex items-center gap-2 transition-colors">
               Initialize Handshake <ArrowRight className="w-4 h-4" />
             </a>
           </motion.div>
