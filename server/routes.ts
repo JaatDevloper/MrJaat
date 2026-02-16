@@ -3,6 +3,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import { log } from "./index";
 
 export async function registerRoutes(
   httpServer: Server,
