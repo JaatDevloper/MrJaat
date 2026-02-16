@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Navigation } from "@/components/Navigation";
 import { NeonButton } from "@/components/NeonButton";
 import { GlitchText } from "@/components/GlitchText";
-import { ArrowRight, Terminal, Quote, Cpu } from "lucide-react";
+import { ArrowRight, Terminal, Quote, Cpu, BadgeCheck } from "lucide-react";
 import { Link } from "wouter";
 
 // Background grid effect component
@@ -22,6 +22,34 @@ export default function Home() {
       <section className="relative flex-1 flex flex-col justify-center items-center text-center px-4 pt-32 pb-20 overflow-hidden">
         <GridBackground />
         
+        {/* Cover Photo Area */}
+        <div className="absolute top-0 left-0 w-full h-64 -z-20 overflow-hidden">
+          <img 
+            src="/cover-jaat.png" 
+            className="w-full h-full object-cover opacity-40"
+            alt="Cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
+        </div>
+
+        {/* Profile Section */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative mb-8"
+        >
+          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary/30 p-1 bg-background relative">
+            <img 
+              src="/profile-jaat.png" 
+              className="w-full h-full rounded-full object-cover"
+              alt="Profile"
+            />
+            <div className="absolute bottom-1 right-1 bg-background rounded-full p-1">
+              <BadgeCheck className="w-6 h-6 text-blue-500 fill-blue-500/20" />
+            </div>
+          </div>
+        </motion.div>
+        
         {/* Decorative elements */}
         <div className="absolute top-1/4 -left-20 w-64 h-64 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-accent/10 rounded-full blur-[100px] pointer-events-none" />
@@ -34,12 +62,12 @@ export default function Home() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-mono uppercase tracking-widest mb-4">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            System Online v2.4
+            Verified Profile: INSANE
           </div>
           
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter uppercase leading-none">
             <span className="block text-stroke-white text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">The Realm of</span>
-            <GlitchText text="Deeps✨" className="text-primary text-glow" />
+            <GlitchText text="INSANE" className="text-primary text-glow" />
           </h1>
           
           <p className="max-w-xl mx-auto text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
@@ -128,7 +156,7 @@ export default function Home() {
       <footer className="border-t border-white/10 bg-black/50 py-12">
         <div className="container mx-auto px-4 text-center">
           <div className="font-display font-bold text-2xl uppercase tracking-widest mb-4">
-            Deeps<span className="text-primary">✨</span>
+            INSANE<span className="text-primary">✨</span>
           </div>
           <p className="text-muted-foreground text-sm font-mono">
             &copy; {new Date().getFullYear()} System All Rights Reserved.
