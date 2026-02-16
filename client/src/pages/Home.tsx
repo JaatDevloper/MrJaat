@@ -39,7 +39,7 @@ export default function Home() {
           
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter uppercase leading-none">
             <span className="block text-stroke-white text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">The Realm of</span>
-            <GlitchText text="MrJaat" className="text-primary text-glow" />
+            <GlitchText text="Deeps✨" className="text-primary text-glow" />
           </h1>
           
           <p className="max-w-xl mx-auto text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
@@ -128,7 +128,7 @@ export default function Home() {
       <footer className="border-t border-white/10 bg-black/50 py-12">
         <div className="container mx-auto px-4 text-center">
           <div className="font-display font-bold text-2xl uppercase tracking-widest mb-4">
-            Mr<span className="text-primary">Jaat</span>
+            Deeps<span className="text-primary">✨</span>
           </div>
           <p className="text-muted-foreground text-sm font-mono">
             &copy; {new Date().getFullYear()} System All Rights Reserved.

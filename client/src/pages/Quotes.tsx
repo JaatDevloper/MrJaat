@@ -82,12 +82,12 @@ export default function Quotes() {
                 <QuoteIcon className="w-8 h-8 text-primary/40 mb-6" />
                 
                 <blockquote className="font-display text-2xl md:text-3xl font-bold leading-tight mb-6 text-white group-hover:text-glow transition-all">
-                  "{quote.content}"
+                  "{quote.text}"
                 </blockquote>
                 
                 <div className="flex justify-between items-center border-t border-white/5 pt-4 mt-auto">
                   <span className="font-mono text-primary text-sm uppercase tracking-wider">
-                    — {quote.author} 💔🗿𝘐𝘕𝘚𝘈𝘕𝘌
+                    — {quote.author}
                   </span>
                   {quote.createdAt && (
                     <span className="text-xs text-muted-foreground font-mono">

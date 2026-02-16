@@ -77,7 +77,7 @@ export default function Logs() {
 
                 <div className="bg-secondary/20 border-l-2 border-accent/30 p-6 rounded-r-lg max-w-4xl hover:bg-secondary/30 transition-colors">
                   <p className="font-mono text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                    {log.content}
+                    {log.content || ''}
                   </p>
                 </div>
               </motion.div>
